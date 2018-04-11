@@ -28,11 +28,15 @@ class URLhausAnalyzer(Analyzer):
         level = "info"
         namespace = "URLhaus"
         predicate = "Search"
-        value = "0 result"
+        value = "\"0 result\""
 
         results = raw["results"]
-        if len(results) > 1:
-            level = "malicious"
+        if len(results) >= 1:
+            level = "malicous"
+
+        if len(results) <= 1:
+            value = "\"{} result\"".format(len(results))
+        else:
             value = "\"{} results\"".format(len(results))
 
         taxonomies.append(
