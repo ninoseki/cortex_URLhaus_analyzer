@@ -1,10 +1,10 @@
 {
-  "name": "urlscan.io",
+  "name": "URLhaus",
   "author": "ninoseki",
   "license": "MIT",
   "url": "https://github.com/ninoseki/cortex_URLhaus_analyzer",
   "version": "0.1.0",
-  "description": "Scan domains or URLs or hashes against URLhaus",
+  "description": "Scan domains, URLs or hashes against URLhaus",
   "dataTypeList": ["domain", "url", "hash"],
   "command": "URLhause/URLhaus_analyzer.py"
 }
