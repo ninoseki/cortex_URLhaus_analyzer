@@ -32,6 +32,7 @@ class URLhausAnalyzer(Analyzer):
 
         results = raw["results"]
         if len(results) > 1:
+            level = "malicious"
             value = "\"{} results\"".format(len(results))
 
         taxonomies.append(
