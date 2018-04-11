@@ -22,8 +22,9 @@ class URLhaus:
         for row in rows:
             cols = row.find("td")
             results.append({
-                "dateadded (utc)": cols[0].text,
-                "malware url": cols[1].text,
+                "dateadded": cols[0].text,
+                "malware_url": cols[1].text,
+                "link": cols[1].find("a", first=True).attrs.get("href"),
                 "status": cols[2].text,
                 "tags": cols[3].text.split(),
                 "gsb": cols[4].text,
