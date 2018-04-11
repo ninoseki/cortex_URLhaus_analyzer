@@ -10,7 +10,7 @@ class URLhausAnalyzer(Analyzer):
     def search(self, indicator):
         """
         Searches for a website using the indicator
-        :param indicator: domain, ip, url
+        :param indicator: domain, url, hash
         :type indicator: str
         :return: dict
         """
