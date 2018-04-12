@@ -27,15 +27,15 @@ class URLhaus:
 
     def _get_raw_data(self):
         try:
-            return self.cache[self.query]
+            return self.cache[self.query.encode('utf-8')]
         except(AttributeError, TypeError):
             return self.fetch()
         except KeyError:
             self.cache.set(
-                'raw_data',
+                self.query.encode('utf-8'),
                 self.fetch(),
                 expire=self.cache_duration)
-            return self.cache[self.query]
+            return self.cache[self.query.encode('utf-8')]
 
     def search(self):
         res = self._get_raw_data()
