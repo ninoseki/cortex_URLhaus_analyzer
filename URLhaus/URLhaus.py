@@ -1,6 +1,6 @@
-from requests_html import HTMLSession
-import urllib
 from diskcache import Cache
+from requests_html import HTML
+import requests
 
 
 class URLhaus:
@@ -13,6 +13,7 @@ class URLhaus:
     :type cache_duration: int
     :type cache_root: str
     """
+
     def __init__(self,
                  query,
                  cache_duration=3600,
@@ -43,12 +44,13 @@ class URLhaus:
         return self.parse(res)
 
     def fetch(self):
-        session = HTMLSession()
-        return session.get(self.target_url())
+        payload = {"search": self.query}
+        return requests.get(self.URL, params=payload).text
 
-    def parse(self, res):
+    def parse(self, doc):
         results = []
-        table = res.html.find("table.table", first=True)
+        html = HTML(html=doc)
+        table = html.find("table.table", first=True)
         rows = table.find("tr")[1:]
         for row in rows:
             cols = row.find("td")
@@ -62,9 +64,3 @@ class URLhaus:
                 "reporter": cols[5].text
             })
         return results
-
-    def target_url(self):
-        return "{}?{}".format(
-            self.URL,
-            urllib.parse.urlencode({"search": self.query})
-        )
