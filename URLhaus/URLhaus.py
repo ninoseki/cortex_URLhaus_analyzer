@@ -1,14 +1,45 @@
 from requests_html import HTMLSession
 import urllib
+from diskcache import Cache
 
 
 class URLhaus:
-    def __init__(self, query):
+    """Simple client to query URLhaus by abuse.ch.
+    :param query: domain, url or hash.
+    :param cache_duration: Duration before refreshing the cache (in seconds).
+                           Ignored if `cache_duration` is 0.
+    :param cache_root: Path where to store the cached file.
+    :type query: string
+    :type cache_duration: int
+    :type cache_root: str
+    """
+    def __init__(self,
+                 query,
+                 cache_duration=3600,
+                 cache_root="/tmp/cortex/URLhaus"):
         self.URL = "https://urlhaus.abuse.ch/browse.php"
         self.query = query
+        self.cache = None
+        if cache_duration > 0:
+            self.cache = Cache(cache_root)
+            self.cache_duration = cache_duration
+
+    __cache_key = __name__ + ':raw_data'
+
+    def _get_raw_data(self):
+        try:
+            return self.cache['raw_data']
+        except(AttributeError, TypeError):
+            return self.fetch()
+        except KeyError:
+            self.cache.set(
+                'raw_data',
+                self.fetch(),
+                expire=self.cache_duration)
+            return self.cache['raw_data']
 
     def search(self):
-        res = self.fetch()
+        res = self._get_raw_data()
         return self.parse(res)
 
     def fetch(self):
