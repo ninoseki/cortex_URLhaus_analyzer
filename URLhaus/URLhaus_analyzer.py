@@ -32,7 +32,7 @@ class URLhausAnalyzer(Analyzer):
 
         results = raw["results"]
         if len(results) >= 1:
-            level = "malicous"
+            level = "malicious"
 
         if len(results) <= 1:
             value = "\"{} result\"".format(len(results))
