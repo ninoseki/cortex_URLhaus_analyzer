@@ -25,11 +25,9 @@ class URLhaus:
             self.cache = Cache(cache_root)
             self.cache_duration = cache_duration
 
-    __cache_key = __name__ + ':raw_data'
-
     def _get_raw_data(self):
         try:
-            return self.cache['raw_data']
+            return self.cache[self.query]
         except(AttributeError, TypeError):
             return self.fetch()
         except KeyError:
@@ -37,7 +35,7 @@ class URLhaus:
                 'raw_data',
                 self.fetch(),
                 expire=self.cache_duration)
-            return self.cache['raw_data']
+            return self.cache[self.query]
 
     def search(self):
         res = self._get_raw_data()
