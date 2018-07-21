@@ -16,7 +16,7 @@ class URLhaus:
 
     def __init__(self,
                  query,
-                 cache_duration=3600,
+                 cache_duration=300,
                  cache_root="/tmp/cortex/URLhaus"):
         self.URL = "https://urlhaus.abuse.ch/browse.php"
         self.query = query
