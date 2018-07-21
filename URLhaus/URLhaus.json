@@ -3,8 +3,8 @@
   "author": "ninoseki",
   "license": "MIT",
   "url": "https://github.com/ninoseki/cortex_URLhaus_analyzer",
-  "version": "0.1.0",
-  "description": "Search domains, URLs or hashes on URLhaus",
+  "version": "1.0",
+  "description": "Search domains, URLs or hashes on URLhaus.",
   "dataTypeList": ["domain", "url", "hash"],
   "command": "URLhaus/URLhaus_analyzer.py",
   "configurationItems": [
@@ -14,7 +14,7 @@
       "type": "number",
       "multi": false,
       "required": true,
-      "defaultValue": 3600
+      "defaultValue": 300
     },
     {
       "name": "cache.root",
